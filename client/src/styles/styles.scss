@@ -1,0 +1,90 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+// Variables
+$primary-color: #5063c7;
+$secondary-color: #f9f9f9;
+$lighter-blue-color: #6579dd;
+$roboto: 'Roboto', sans-serif;
+
+// Global Styles
+*, *::after, *::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 20px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+button{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: background-color 250ms ease;
+}
+
+input{
+    border: 1px solid #333;
+    outline: none;
+}
+
+ul{
+    list-style: none;
+}
+
+.app{
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollable{
+    &::-webkit-scrollbar{
+        width: 8px;
+    }
+    
+    &::-webkit-scrollbar-thumb{
+        background: #555;
+        border-radius: 8px;
+    }
+}
+
+.appHeader{
+    text-align: end;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.appContent{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.title{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.title--primmary{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title--secondary{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.chart--center{
+    margin:auto;
+}
+
+
