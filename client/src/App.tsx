@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis } from 'recharts';
 
+// model for data storage
 interface Message {
   id: number
   timestamp: string
@@ -9,6 +10,7 @@ interface Message {
   data: number
 }
 
+// model for data presentation
 interface CombinedMessage {
   id?: number
   time: string
@@ -25,10 +27,14 @@ const App = () => {
   const [messages2, setMessages2] = useState<Message[]>([]);
   const [combinedData, setCombinedData] = useState<CombinedMessage[]>([]);
 
+  // used useRef to get the same socket 
   const socket = useRef<WebSocket>();
  
   useEffect(() => {
 
+    // function that checks socket state periodically, and triggers the useEffect hook
+    // when we're dealing with error on socket connection
+    // tries to reconnect the socket every 10 seconds if no connection was sucessfull
     const checkSocketConnection = () => {
       setTimeout(() => {
         if(socket.current?.CLOSED) {
@@ -38,8 +44,10 @@ const App = () => {
       }, 10000);
     }
 
+    // socket adderess should be an env variable set on .env file
     socket.current = new WebSocket('ws://localhost:8999')
 
+    // when socket connection is OPEN, presents toast and sets state connectiont to true
     socket.current.onopen = (e) => {
       setConnected(true);
       toast.dismiss();
@@ -87,6 +95,9 @@ const App = () => {
       });
     }
 
+    // when we get errors on socket connection, the checkSocketConnection function is run 
+    // for reconnection
+    // toast is presented accordingly
     socket.current.onerror = (e) => {
       console.log(e);
       toast.dismiss();
@@ -95,6 +106,7 @@ const App = () => {
       setConnected(false);
     }
 
+    // Toast is presented when socket connection is CLOSED
     socket.current.onclose = (ev: CloseEvent) => {
       toast.warn("Socket Connection is Closed!");
     }
@@ -104,6 +116,8 @@ const App = () => {
       socket.current?.close();
     }
    
+    // this variable toggleConnection is strictly used to trigger the use useEffect hook
+    // when we're getting an error when connection to the server
   }, [toggleConnection])
 
   return (
